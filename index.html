@@ -91,7 +91,7 @@
   async function api(action,payload={},auth=true){if(!state.client)throw new Error('Isi SUPABASE_URL dan SUPABASE_ANON_KEY di bagian konfigurasi index.html.');const headers={};if(auth&&getToken())headers.Authorization=`Bearer ${getToken()}`;const {data,error}=await state.client.functions.invoke(EDGE_FUNCTION,{body:{action,...payload},headers});if(error){let msg=error.message||'Gagal menghubungi server';try{const c=await error.context.json();msg=c?.error?.message||msg}catch{}throw new Error(msg)}if(data?.error)throw new Error(data.error.message);return data}
   function renderPin(){const dots=$('pinDots').children;[...dots].forEach((d,i)=>d.classList.toggle('filled',i<state.pin.length));$('pinPad').innerHTML='';['1','2','3','4','5','6','7','8','9','⌫','0','↵'].forEach(v=>{const b=document.createElement('button');b.type='button';b.textContent=v;b.className='h-14 rounded-2xl bg-[#f7f3ef] hover:bg-[#eee4db] text-lg font-semibold text-[#49352c]';b.onclick=()=>{if(v==='⌫')state.pin=state.pin.slice(0,-1);else if(v==='↵')submitLogin();else if(state.pin.length<6)state.pin+=v;renderPin();if(state.pin.length===6)setTimeout(submitLogin,120)};$('pinPad').append(b)})}
   async function submitLogin(){if(state.pin.length!==6)return;$('loginError').textContent='Memeriksa PIN…';try{const r=await api('login',{pin:state.pin},false);saveLogin(r.token,r.employee);$('loginError').textContent='';state.pin='';await enterAttendance()}catch(e){$('loginError').textContent=e.message;state.pin='';renderPin()}}
-  function roleLabel(r){return ({owner:'Owner',manager:'Manager',barista:'Karyawan'})[r]||'Karyawan'}
+  function roleLabel(r){return ({owner:'Owner',manager:'Manager',karyawan:'Karyawan'})[r]||'Karyawan'}
   async function enterAttendance(){stopCamera();$('attendanceName').textContent=state.employee.fullName;$('attendanceRole').textContent=roleLabel(state.employee.role);$('attendanceGreeting').textContent=`Halo, ${state.employee.fullName}. Ambil selfie dan validasi lokasi untuk memulai shift.`;showScreen('attendance');try{const s=await api('status');if(s.isClockedIn&&s.session){state.attendance=s.session;sessionStorage.setItem(SESSION_KEY,JSON.stringify(s.session));await enterPOS()}else{$('clockInBtn').disabled=false;$('clockInBtn').textContent='Clock-In & Ambil Selfie'}}catch(e){toast(e.message,'error');if(e.message.toLowerCase().includes('login'))clearLogin()}}
   function getGPS(){return new Promise((resolve,reject)=>{if(!navigator.geolocation)return reject(new Error('Browser tidak mendukung GPS.'));navigator.geolocation.getCurrentPosition(p=>resolve({latitude:p.coords.latitude,longitude:p.coords.longitude,accuracy:p.coords.accuracy}),e=>reject(new Error(e.code===1?'Izin lokasi ditolak. Aktifkan GPS dan izinkan akses lokasi.':'GPS gagal dibaca. Pastikan layanan lokasi aktif.')),{enableHighAccuracy:true,timeout:20000,maximumAge:0})})}
   async function startCamera(){
@@ -230,21 +230,31 @@
       return `<div class="flex items-center gap-3 p-2 rounded-2xl ${st==='out'?'bg-rose-50/50':''}"><div class="w-12 h-12 rounded-xl bg-[#f4ece3] overflow-hidden flex items-center justify-center text-xl flex-shrink-0">${pic?`<img src="${escHtml(pic)}" class="w-full h-full object-cover" loading="lazy" onerror="this.remove()">`:categoryImage(p.category)}</div><div class="flex-1 min-w-0"><p class="font-bold text-sm truncate">${escHtml(p.name)}</p><p class="text-xs text-stone-400">${escHtml(p.category)}</p></div><span class="text-[10px] font-bold rounded-full px-2 py-1 ${badge[st][1]} hidden sm:inline">${badge[st][0]}</span>${ctl}</div>`}).join(''):'<p class="text-center text-stone-400 py-10 text-sm">Tidak ada menu yang cocok.</p>'}
   async function updateStock(id,val){const p=state.products.find(x=>String(x.id)===String(id));if(!p)return;const v=Math.max(0,Math.min(9999,Math.round(Number(val)||0))),prev={stock_qty:p.stock_qty,track_stock:p.track_stock};p.stock_qty=v;p.track_stock=true;drawStockList();drawStock();renderProducts();try{await api('stock-update',{id:p.id,stock_qty:v})}catch(e){Object.assign(p,prev);drawStock();renderProducts();toast(e.message,'error')}}
   // ---- Rekap Absensi (Owner/Manager) ----
-  const att={rows:[],filter:'month'};
+  const att={rows:[],sales:[],filter:'month',view:'log'};
   const attDay=v=>new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Jakarta',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date(v));
   const attTime=v=>new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Jakarta',hour:'2-digit',minute:'2-digit',hour12:false}).format(new Date(v));
   const attDur=m=>`${Math.floor(m/60)} j ${String(Math.round(m%60)).padStart(2,'0')} m`;
-  async function openAtt(){att.filter='month';$('attModal').classList.remove('hidden-screen');$('attChips').innerHTML='';$('attSummary').innerHTML='';$('attList').innerHTML='<p class="text-center text-stone-400 py-10 text-sm">Memuat absensi…</p>';
-    try{const r=await api('attendance-report',{days:62,photos:true});att.rows=r.rows||[];drawAtt()}catch(e){$('attList').innerHTML=`<p class="text-center text-rose-600 py-10 text-sm px-4">${escHtml(e.message)}</p>`}}
+  async function openAtt(){att.filter='month';att.view='log';$('attModal').classList.remove('hidden-screen');$('attChips').innerHTML='';$('attSummary').innerHTML='';$('attList').innerHTML='<p class="text-center text-stone-400 py-10 text-sm">Memuat absensi…</p>';
+    try{const r=await api('attendance-report',{days:62,photos:true});att.rows=r.rows||[];att.sales=r.sales_times||[];drawAtt()}catch(e){$('attList').innerHTML=`<p class="text-center text-rose-600 py-10 text-sm px-4">${escHtml(e.message)}</p>`}}
   function closeAtt(){$('attModal').classList.add('hidden-screen')}
   function setAttFilter(f){att.filter=f;drawAtt()}
   function drawAtt(){
     const today=attDay(new Date()),weekAgo=attDay(new Date(Date.now()-6*86400000));
     const chip=(k,l)=>`<button onclick="setAttFilter('${k}')" class="rounded-full px-3 py-1.5 text-xs font-bold ${att.filter===k?'bg-[#765044] text-white':'bg-white border border-stone-200 text-stone-500'}">${l}</button>`;
-    $('attChips').innerHTML=chip('today','Hari ini')+chip('week','7 hari')+chip('month','Bulan ini')+chip('all','Semua (62 hari)');
+    const vchip=(k,l)=>`<button onclick="att.view='${k}';drawAtt()" class="rounded-full px-3 py-1.5 text-xs font-bold ${att.view===k?'bg-[#211a17] text-white':'bg-white border border-stone-300 text-stone-600'}">${l}</button>`;
+    $('attChips').innerHTML=vchip('log','Riwayat absensi')+vchip('days','Jam buka toko per hari')+'<span class="w-full"></span>'+chip('today','Hari ini')+chip('week','7 hari')+chip('month','Bulan ini')+chip('all','Semua (62 hari)');
     const list=att.rows.filter(x=>{const d=attDay(x.clock_in_at);return att.filter==='today'?d===today:att.filter==='week'?d>=weekAgo:att.filter==='month'?d.slice(0,7)===today.slice(0,7):true}).sort((a,b)=>new Date(b.clock_in_at)-new Date(a.clock_in_at));
     const per=new Map();list.forEach(x=>{const a=per.get(x.name)||{days:new Set(),min:0};a.days.add(attDay(x.clock_in_at));if(x.clock_out_at)a.min+=(new Date(x.clock_out_at)-new Date(x.clock_in_at))/60000;per.set(x.name,a)});
     $('attSummary').innerHTML=[...per.entries()].map(([n,a])=>`<div class="rounded-2xl bg-[#f4ece3] p-3"><p class="text-sm font-bold text-[#765044] truncate">${escHtml(n)}</p><p class="text-lg font-bold leading-tight mt-1">${attDur(a.min)}</p><p class="text-[11px] text-stone-500">${a.days.size} hari hadir</p></div>`).join('');
+    if(att.view==='days'){
+      const keys=[...new Set(list.map(x=>attDay(x.clock_in_at)))].sort().reverse();
+      $('attList').innerHTML=keys.length?keys.map(k=>{
+        const ss=list.filter(x=>attDay(x.clock_in_at)===k).sort((a,b)=>new Date(a.clock_in_at)-new Date(b.clock_in_at)),first=ss[0],open=ss.some(x=>!x.clock_out_at);
+        const outs=ss.filter(x=>x.clock_out_at).map(x=>new Date(x.clock_out_at).getTime()),lastOut=outs.length?Math.max(...outs):null;
+        const sales=att.sales.filter(v=>attDay(v)===k).sort(),dur=(first&&lastOut&&!open)?attDur((lastOut-new Date(first.clock_in_at))/60000):null;
+        const tgl=new Intl.DateTimeFormat('id-ID',{timeZone:'Asia/Jakarta',weekday:'long',day:'2-digit',month:'long'}).format(new Date(first.clock_in_at));
+        return `<div class="rounded-2xl border border-stone-100 p-3 mb-2"><div class="flex justify-between items-center"><p class="font-bold text-sm">${tgl}</p>${dur?`<span class="text-[11px] font-bold rounded-full px-2 py-1 bg-stone-100 text-stone-600">Buka ${dur}</span>`:''}</div><div class="grid grid-cols-2 gap-2 mt-2 text-sm"><div class="rounded-xl bg-emerald-50 p-2"><p class="text-[10px] font-bold text-emerald-700">BUKA (clock-in pertama)</p><p class="text-lg font-bold leading-tight">${attTime(first.clock_in_at)}</p><p class="text-[11px] text-stone-500">${escHtml(first.name)}</p></div><div class="rounded-xl ${open?'bg-amber-50':'bg-rose-50'} p-2"><p class="text-[10px] font-bold ${open?'text-amber-700':'text-rose-700'}">TUTUP (clock-out terakhir)</p><p class="text-lg font-bold leading-tight">${open?'—':(lastOut?attTime(lastOut):'—')}</p><p class="text-[11px] text-stone-500">${open?'Ada yang belum clock-out':''}</p></div></div><p class="text-xs text-stone-500 mt-2">${sales.length?`Transaksi pertama <strong>${attTime(sales[0])}</strong> · terakhir <strong>${attTime(sales[sales.length-1])}</strong> · ${sales.length} struk`:'Belum ada transaksi'}</p></div>`}).join(''):'<p class="text-center text-stone-400 py-10 text-sm">Belum ada absensi pada periode ini.</p>';
+      return}
     const thumb=(u,l)=>u?`<a href="${escHtml(u)}" target="_blank" rel="noopener" title="Selfie ${l}" class="block w-10 h-10 rounded-full overflow-hidden border border-stone-200 bg-stone-100"><img src="${escHtml(u)}" class="w-full h-full object-cover" loading="lazy"></a>`:'';
     $('attList').innerHTML=list.length?list.map(x=>{const d=attDay(x.clock_in_at),open=!x.clock_out_at;
       const st=open?(d===today?['Sedang bekerja','bg-emerald-100 text-emerald-700']:['Belum clock-out','bg-amber-100 text-amber-800']):['Selesai · '+attDur((new Date(x.clock_out_at)-new Date(x.clock_in_at))/60000),'bg-stone-100 text-stone-600'];
@@ -252,7 +262,11 @@
       return `<div class="flex items-center gap-3 p-2 rounded-2xl hover:bg-[#faf6f1]"><div class="w-16 text-center flex-shrink-0"><p class="text-[11px] text-stone-400">${tgl}</p></div><div class="flex-1 min-w-0"><p class="font-bold text-sm truncate">${escHtml(x.name)}</p><p class="text-xs text-stone-500">Masuk ${attTime(x.clock_in_at)} · Pulang ${open?'—':attTime(x.clock_out_at)}</p><span class="inline-block mt-1 text-[10px] font-bold rounded-full px-2 py-0.5 ${st[1]}">${st[0]}</span></div><div class="flex gap-1">${thumb(x.in_photo_url,'masuk')}${thumb(x.out_photo_url,'pulang')}</div></div>`}).join(''):'<p class="text-center text-stone-400 py-10 text-sm">Belum ada absensi pada periode ini.</p>'}
   async function payConfirm(){if(pay.busy)return;pay.busy=true;const b=$('payConfirm');b.disabled=true;b.textContent='Menyimpan…';const t=totals();const method=state.payment,received=pay.received;try{const r=await doCheckout();const total=Number(r.sale?.total??t.total);pay.done={no:r.sale?.receipt_no,method,total,received,change:Math.max(0,received-total),subtotal:t.subtotal,tax:t.tax,applyTax:state.applyTax,at:new Date(),cashier:state.employee?.fullName||'',items:[...state.cart.values()].map(x=>({name:x.product.name,qty:x.qty,price:Number(x.product.price)}))};state.cart.clear();state.applyTax=true;$('ppnToggle').checked=true;renderCart();drawPay();loadProducts()}catch(e){toast(e.message,'error');b.textContent='Konfirmasi Pembayaran';loadProducts()}finally{pay.busy=false}}
   // ======== LAPORAN EXCEL (ExcelJS) ========
-  async function buildKopianReport(ExcelJS,rows,products,lowStock,attendance){
+  async function buildKopianReport(ExcelJS,rows,products,lowStock,attendance,shift){
+    const openTxt=(shift&&shift.open)||'17:00',graceMin=(shift&&Number(shift.grace))||10;
+    const openMin=(()=>{const [h,m]=openTxt.split(':').map(Number);return h*60+(m||0)})();
+    const wibMinutes=v=>{const p=new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Jakarta',hour:'2-digit',minute:'2-digit',hour12:false}).formatToParts(new Date(v));return Number(p.find(x=>x.type==='hour').value)%24*60+Number(p.find(x=>x.type==='minute').value)};
+    const lateOf=x=>{const d=wibMinutes(x.clock_in_at)-openMin;return d>graceMin?d:0};
     const att=Array.isArray(attendance)?attendance:[];
     const BROWN='FF765044',CREAM='FFF4ECE3',DARK='FF211A17',LINE='FFE3D8CC';
     const RP='"Rp" #,##0',INT='#,##0',PCT='0.0%',DATEF='dd/mm/yyyy';
@@ -360,18 +374,39 @@
     const attSorted=[...att].sort((x,y)=>new Date(x.clock_in_at)-new Date(y.clock_in_at));
     const attDays=[...new Set(attSorted.map(x=>dayKey(x.clock_in_at)))].sort();
     const attPeriode=attDays.length?(attDays.length===1?longDate(attDays[0]):`${longDate(attDays[0])} – ${longDate(attDays[attDays.length-1])}`):'-';
-    const attSub=`KOPIAN · Graha Raya  |  Periode absensi: ${attPeriode}`;
+    const attSub=`KOPIAN · Graha Raya  |  Periode absensi: ${attPeriode}  |  Jam buka ${openTxt} (toleransi ${graceMin} menit)`;
     const durFrac=x=>x.clock_out_at?Math.max(0,(new Date(x.clock_out_at)-new Date(x.clock_in_at))/60000)/1440:null;
-    const staffAtt=new Map();attSorted.forEach(x=>{const k=x.name||'Tidak diketahui';const a=staffAtt.get(k)||{petugas:k,days:new Set(),sesi:0,dur:0};a.days.add(dayKey(x.clock_in_at));a.sesi++;a.dur+=durFrac(x)||0;staffAtt.set(k,a)});
-    const attStaff=[...staffAtt.values()].sort((x,y)=>y.dur-x.dur).map(a=>({petugas:a.petugas,hari:a.days.size,sesi:a.sesi,dur:a.dur,avg:a.days.size?a.dur/a.days.size:0}));
+    const staffAtt=new Map();attSorted.forEach(x=>{const k=x.name||'Tidak diketahui';const a=staffAtt.get(k)||{petugas:k,days:new Set(),sesi:0,dur:0,late:0,lateMin:0};a.days.add(dayKey(x.clock_in_at));a.sesi++;a.dur+=durFrac(x)||0;const l=lateOf(x);if(l>0){a.late++;a.lateMin+=l}staffAtt.set(k,a)});
+    const attStaff=[...staffAtt.values()].sort((x,y)=>y.dur-x.dur).map(a=>({petugas:a.petugas,hari:a.days.size,sesi:a.sesi,dur:a.dur,avg:a.days.size?a.dur/a.days.size:0,late:a.late,lateMin:a.lateMin}));
     if(att.length){
       tableSheet('Absensi','DAFTAR ABSENSI (CLOCK-IN / CLOCK-OUT)',[
         {header:'Tanggal',key:'tgl',width:13,fmt:DATEF,align:'center'},{header:'Petugas',key:'petugas',width:18},{header:'Masuk',key:'masuk',width:10,align:'center'},{header:'Pulang',key:'pulang',width:16,align:'center'},
-        {header:'Durasi (jam:menit)',key:'dur',width:16,fmt:'[h]:mm',align:'center'},{header:'Jarak Masuk (m)',key:'jarak',width:14,fmt:INT},{header:'Status',key:'status',width:16,align:'center'}
-      ],attSorted.map(x=>({tgl:dayDate(dayKey(x.clock_in_at)),petugas:x.name||'-',masuk:timeStr(x.clock_in_at),pulang:x.clock_out_at?timeStr(x.clock_out_at):'Belum clock-out',dur:durFrac(x),jarak:x.in_distance_m==null?null:Math.round(num(x.in_distance_m)),status:x.clock_out_at?'Selesai':'Belum clock-out'})),['dur'],attSub);
+        {header:'Durasi (jam:menit)',key:'dur',width:16,fmt:'[h]:mm',align:'center'},{header:'Terlambat (menit)',key:'late',width:14,fmt:INT},{header:'Status Masuk',key:'smasuk',width:15,align:'center'},{header:'Status Pulang',key:'spulang',width:16,align:'center'},{header:'Jarak Masuk (m)',key:'jarak',width:14,fmt:INT}
+      ],attSorted.map(x=>{const l=lateOf(x);return{tgl:dayDate(dayKey(x.clock_in_at)),petugas:x.name||'-',masuk:timeStr(x.clock_in_at),pulang:x.clock_out_at?timeStr(x.clock_out_at):'Belum clock-out',dur:durFrac(x),late:l,smasuk:l>0?'Terlambat':'Tepat waktu',spulang:x.clock_out_at?'Selesai':'Belum clock-out',jarak:x.in_distance_m==null?null:Math.round(num(x.in_distance_m))}}),['dur','late'],attSub);
+      {const wsA=wb.getWorksheet('Absensi'),amber={type:'pattern',pattern:'solid',fgColor:{argb:'FFFEF0C7'}};attSorted.forEach((x,i)=>{const row=wsA.getRow(5+i);if(lateOf(x)>0){[6,7].forEach(c=>{row.getCell(c).fill=amber;row.getCell(c).font={bold:true,color:{argb:'FFB54708'}}})}if(!x.clock_out_at){row.getCell(8).fill=amber;row.getCell(8).font={bold:true,color:{argb:'FFB54708'}}}})}
       tableSheet('Rekap Absensi','REKAP ABSENSI PER PETUGAS',[
-        {header:'Petugas',key:'petugas',width:22},{header:'Hari Hadir',key:'hari',width:12,fmt:INT},{header:'Jumlah Sesi',key:'sesi',width:12,fmt:INT},{header:'Total Jam Kerja',key:'dur',width:16,fmt:'[h]:mm',align:'center'},{header:'Rata-rata per Hari',key:'avg',width:16,fmt:'[h]:mm',align:'center'}
-      ],attStaff,['hari','sesi','dur'],attSub);
+        {header:'Petugas',key:'petugas',width:22},{header:'Hari Hadir',key:'hari',width:12,fmt:INT},{header:'Jumlah Sesi',key:'sesi',width:12,fmt:INT},{header:'Total Jam Kerja',key:'dur',width:16,fmt:'[h]:mm',align:'center'},{header:'Rata-rata per Hari',key:'avg',width:16,fmt:'[h]:mm',align:'center'},{header:'Jumlah Terlambat (kali)',key:'late',width:16,fmt:INT},{header:'Total Terlambat (menit)',key:'lateMin',width:16,fmt:INT}
+      ],attStaff,['hari','sesi','dur','late','lateMin'],attSub);
+    }
+
+    // ---------- JAM OPERASIONAL TOKO (dari clock-in pertama & clock-out terakhir per hari) ----------
+    {
+      const keys=[...new Set([...attDays,...days])].sort();
+      const ops=keys.map(k=>{
+        const ss=attSorted.filter(x=>dayKey(x.clock_in_at)===k),first=ss[0],open=ss.some(x=>!x.clock_out_at);
+        const outs=ss.filter(x=>x.clock_out_at).map(x=>new Date(x.clock_out_at).getTime()),lastOut=outs.length?Math.max(...outs):null;
+        const rr=receipts.filter(x=>dayKey(x.sale_time_wib)===k);
+        const lama=(first&&lastOut&&!open)?Math.max(0,(lastOut-new Date(first.clock_in_at).getTime())/60000)/1440:null;
+        return{hari:dayName(k),tgl:dayDate(k),buka:first?timeStr(first.clock_in_at):'-',oleh:first?(first.name||'-'):'-',tutup:ss.length?(open?'Belum clock-out':(lastOut?timeStr(lastOut):'-')):'-',lama,tfirst:rr.length?timeStr(rr[0].sale_time_wib):'-',tlast:rr.length?timeStr(rr[rr.length-1].sale_time_wib):'-',jml:rr.length};
+      });
+      if(ops.length){
+        const wsO=tableSheet('Jam Operasional','JAM OPERASIONAL TOKO PER HARI',[
+          {header:'Hari',key:'hari',width:12},{header:'Tanggal',key:'tgl',width:13,fmt:DATEF,align:'center'},{header:'Jam Buka (clock-in pertama)',key:'buka',width:16,align:'center'},{header:'Dibuka oleh',key:'oleh',width:16},
+          {header:'Jam Tutup (clock-out terakhir)',key:'tutup',width:17,align:'center'},{header:'Lama Beroperasi (jam:menit)',key:'lama',width:16,fmt:'[h]:mm',align:'center'},
+          {header:'Transaksi Pertama',key:'tfirst',width:14,align:'center'},{header:'Transaksi Terakhir',key:'tlast',width:14,align:'center'},{header:'Jumlah Transaksi',key:'jml',width:13,fmt:INT}
+        ],ops,['jml'],'KOPIAN · Graha Raya  |  Jam buka dan tutup dicatat server dari clock-in dan clock-out karyawan');
+        const ref=wb.getWorksheet('Rekap Harian');if(ref)wsO.orderNo=ref.orderNo+0.5;
+      }
     }
 
     // ---------- 1. RINGKASAN (nilai = rumus yang terhubung ke sheet lain) ----------
@@ -420,6 +455,8 @@
         const aTot=5+attStaff.length,totDur=attStaff.reduce((a,x)=>a+x.dur,0);
         r++;section('ABSENSI (JAM KERJA)');
         line('Total jam kerja semua petugas',V(true,`${q('Rekap Absensi')}D${aTot}`,totDur),'[h]:mm','Sheet Rekap Absensi · baris TOTAL, kolom Total Jam Kerja');
+        line('Jumlah keterlambatan (kali)',V(true,`${q('Rekap Absensi')}F${aTot}`,attStaff.reduce((a,x)=>a+x.late,0)),INT,`Sheet Rekap Absensi · baris TOTAL, kolom Jumlah Terlambat (jam buka ${openTxt}, toleransi ${graceMin} menit)`);
+        line('Total menit terlambat',V(true,`${q('Rekap Absensi')}G${aTot}`,attStaff.reduce((a,x)=>a+x.lateMin,0)),INT,'Sheet Rekap Absensi · baris TOTAL, kolom Total Terlambat (menit)');
         attStaff.forEach((x,i)=>line(V(true,`${q('Rekap Absensi')}A${5+i}`,x.petugas),V(true,`${q('Rekap Absensi')}D${5+i}`,x.dur),'[h]:mm',`Sheet Rekap Absensi · baris ke-${i+1} (jam kerja dan hari hadir)`,{extra:V(true,`${q('Rekap Absensi')}B${5+i}`,x.hari),extraFmt:'0 "hari"'}));
       }
       rs.pageSetup={orientation:'portrait',fitToPage:true,fitToWidth:1,fitToHeight:1,paperSize:9};
