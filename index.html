@@ -21,7 +21,7 @@
       <div id="pinDots" class="flex justify-center gap-4 mt-8 mb-7"><span class="pin-dot"></span><span class="pin-dot"></span><span class="pin-dot"></span><span class="pin-dot"></span><span class="pin-dot"></span><span class="pin-dot"></span></div>
       <div class="grid grid-cols-3 gap-3 max-w-[280px] mx-auto" id="pinPad"></div>
       <p id="loginError" class="text-rose-600 text-xs mt-5 min-h-4"></p>
-      <p class="text-[11px] text-stone-400 mt-5">Toko Kopi Harum Manis · Graha Raya</p>
+      <p class="text-[11px] text-stone-400 mt-5">Graha Raya, Tangerang Selatan</p>
     </section>
   </main>
 
@@ -36,9 +36,9 @@
   </main>
 
   <main id="posScreen" class="hidden-screen min-h-screen">
-    <header class="sticky top-0 z-30 bg-[#211a17] text-white px-4 md:px-7 py-3 flex items-center justify-between shadow-lg"><div class="flex items-center gap-3"><img id="headerLogo" class="w-12 h-10 object-contain rounded-lg bg-white p-1"><div><div class="serif text-xl leading-tight">KOPIAN</div><div class="text-[10px] tracking-[.16em] text-[#cbb8a8] uppercase">Harum Manis · Graha Raya</div></div></div><div class="flex items-center gap-3"><div class="text-right hidden sm:block"><p id="cashierName" class="text-sm font-bold">—</p><p id="cashierRole" class="text-[10px] text-[#cbb8a8] uppercase tracking-wider">—</p></div><div class="w-9 h-9 rounded-full bg-[#9b715a] flex items-center justify-center font-bold" id="cashierInitial">K</div><button id="clockOutBtn" class="bg-[#c49a62] text-[#211a17] rounded-lg px-3 py-2 text-xs font-bold hover:bg-[#d3b17f]">Akhiri Shift</button><button id="logoutPos" class="border border-white/20 rounded-lg px-3 py-2 text-xs hover:bg-white/10">Keluar</button></div></header>
+    <header class="sticky top-0 z-30 bg-[#211a17] text-white px-4 md:px-7 py-3 flex items-center justify-between shadow-lg"><div class="flex items-center gap-3"><img id="headerLogo" class="w-12 h-10 object-contain rounded-lg bg-white p-1"><div><div class="serif text-xl leading-tight">KOPIAN</div><div class="text-[10px] tracking-[.16em] text-[#cbb8a8] uppercase">Graha Raya</div></div></div><div class="flex items-center gap-3"><div class="text-right hidden sm:block"><p id="cashierName" class="text-sm font-bold">—</p><p id="cashierRole" class="text-[10px] text-[#cbb8a8] uppercase tracking-wider">—</p></div><div class="w-9 h-9 rounded-full bg-[#9b715a] flex items-center justify-center font-bold" id="cashierInitial">K</div><button id="clockOutBtn" class="bg-[#c49a62] text-[#211a17] rounded-lg px-3 py-2 text-xs font-bold hover:bg-[#d3b17f]">Akhiri Shift</button><button id="logoutPos" class="border border-white/20 rounded-lg px-3 py-2 text-xs hover:bg-white/10">Keluar</button></div></header>
     <div class="max-w-[1600px] mx-auto p-4 md:p-6 grid xl:grid-cols-[minmax(0,1fr)_410px] gap-6">
-      <section class="min-w-0"><div class="flex flex-wrap justify-between items-end gap-3 mb-5"><div><p class="text-xs text-[#9b7663] font-bold tracking-[.2em] uppercase">Good coffee, good day</p><h1 class="serif text-3xl md:text-4xl mt-1">Menu KOPIAN</h1><p class="text-sm text-stone-500 mt-1">Pilih menu untuk ditambahkan ke pesanan.</p></div><div class="flex gap-2"><button id="refreshProducts" class="bg-white border border-stone-200 rounded-xl px-3 py-2 text-xs font-semibold">↻ Refresh</button><button id="stockBtn" class="bg-white border border-stone-200 rounded-xl px-3 py-2 text-xs font-semibold">📦 Stok</button><button id="manageBtn" class="hidden-screen bg-white border border-stone-200 rounded-xl px-3 py-2 text-xs font-semibold">⚙ Kelola Menu</button><button id="exportBtn" class="bg-[#211a17] text-white rounded-xl px-3 py-2 text-xs font-semibold">↓ Ekspor Excel</button></div></div>
+      <section class="min-w-0"><div class="flex flex-wrap justify-between items-end gap-3 mb-5"><div><p class="text-xs text-[#9b7663] font-bold tracking-[.2em] uppercase">Good coffee, good day</p><h1 class="serif text-3xl md:text-4xl mt-1">Menu KOPIAN</h1><p class="text-sm text-stone-500 mt-1">Pilih menu untuk ditambahkan ke pesanan.</p></div><div class="flex gap-2"><button id="refreshProducts" class="bg-white border border-stone-200 rounded-xl px-3 py-2 text-xs font-semibold">↻ Refresh</button><button id="attBtn" class="hidden-screen bg-white border border-stone-200 rounded-xl px-3 py-2 text-xs font-semibold">🕘 Absensi</button><button id="stockBtn" class="bg-white border border-stone-200 rounded-xl px-3 py-2 text-xs font-semibold">📦 Stok</button><button id="manageBtn" class="hidden-screen bg-white border border-stone-200 rounded-xl px-3 py-2 text-xs font-semibold">⚙ Kelola Menu</button><button id="exportBtn" class="bg-[#211a17] text-white rounded-xl px-3 py-2 text-xs font-semibold">↓ Ekspor Excel</button></div></div>
       <div class="flex gap-2 overflow-x-auto pb-3 mb-4 scrollbar" id="categoryTabs"></div><div id="productGrid" class="grid grid-cols-2 sm:grid-cols-3 2xl:grid-cols-4 gap-3 md:gap-4"></div></section>
       <aside class="bg-white rounded-[24px] soft-shadow border border-stone-100 flex flex-col h-[calc(100vh-116px)] min-h-[600px] sticky top-[84px]"><div class="p-5 border-b border-stone-100 flex justify-between items-center"><div><p class="text-[10px] tracking-[.2em] text-[#9b7663] font-bold">YOUR ORDER</p><h2 class="serif text-2xl">Keranjang</h2></div><span id="cartCount" class="bg-[#f3ece5] text-[#765044] rounded-full px-3 py-1 text-xs font-bold">0 item</span></div>
       <div id="cartItems" class="flex-1 overflow-y-auto p-4 scrollbar"><div class="h-full flex flex-col items-center justify-center text-stone-400"><div class="text-4xl mb-3">☕</div><p class="text-sm">Keranjang masih kosong</p><p class="text-xs mt-1">Pilih menu di sebelah kiri.</p></div></div>
@@ -61,6 +61,7 @@
   }
   </style>
   <div id="receipt"></div>
+  <div id="attModal" class="hidden-screen fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4"><div class="bg-white rounded-3xl w-full max-w-2xl max-h-[92vh] flex flex-col soft-shadow"><div class="p-5 pb-3 flex justify-between items-start"><div><p class="text-[10px] tracking-[.2em] text-[#9b7663] font-bold">OWNER / MANAGER</p><h3 class="serif text-2xl">Rekap Absensi</h3><p class="text-xs text-stone-400 mt-1">Clock-in dan clock-out karyawan, lengkap dengan selfie.</p></div><button onclick="closeAtt()" class="text-stone-400 text-3xl leading-none px-2">×</button></div><div id="attChips" class="px-5 flex gap-2 flex-wrap"></div><div id="attSummary" class="px-5 pt-3 grid grid-cols-2 sm:grid-cols-3 gap-2"></div><div id="attList" class="overflow-y-auto p-3 mt-2 scrollbar border-t border-stone-100"></div></div></div>
   <div id="stockModal" class="hidden-screen fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4"><div class="bg-white rounded-3xl w-full max-w-2xl max-h-[92vh] flex flex-col soft-shadow"><div class="p-5 pb-3 flex justify-between items-start"><div><p class="text-[10px] tracking-[.2em] text-[#9b7663] font-bold">PERSEDIAAN</p><h3 class="serif text-2xl">Rekap Stok</h3><p id="stSub" class="text-xs text-stone-400 mt-1"></p></div><button onclick="closeStock()" class="text-stone-400 text-3xl leading-none px-2">×</button></div><div id="stSummary" class="px-5 grid grid-cols-4 gap-2"></div><div class="px-5 pt-3 flex flex-wrap gap-2 items-center"><div id="stChips" class="flex gap-2"></div><input id="stSearch" oninput="stockState.q=this.value;drawStockList()" placeholder="Cari menu…" class="field flex-1 min-w-[140px] !py-2 text-sm"></div><div id="stList" class="overflow-y-auto p-3 mt-2 scrollbar border-t border-stone-100"></div></div></div>
   <div id="mgrModal" class="hidden-screen fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4"><div class="bg-white rounded-3xl w-full max-w-2xl max-h-[90vh] flex flex-col soft-shadow"><div class="p-5 border-b border-stone-100 flex justify-between items-center"><div><p class="text-[10px] tracking-[.2em] text-[#9b7663] font-bold">OWNER / MANAGER</p><h3 class="serif text-2xl">Kelola Menu</h3></div><div class="flex gap-2 items-center"><button onclick="openEdit(null)" class="btn-main rounded-xl px-4 py-2 text-sm font-bold">+ Menu baru</button><button onclick="closeMgr()" class="text-stone-400 text-3xl leading-none px-2">×</button></div></div><div id="mgrList" class="overflow-y-auto p-3 scrollbar"></div></div></div>
   <div id="editModal" class="hidden-screen fixed inset-0 z-[60] bg-black/60 flex items-center justify-center p-4"><div class="bg-white rounded-3xl w-full max-w-sm p-6 soft-shadow max-h-[92vh] overflow-y-auto"><h3 id="edTitle" class="serif text-2xl mb-4">Menu</h3><div class="flex items-center gap-4"><div id="edPreview" class="w-24 h-24 rounded-2xl bg-[#f4ece3] overflow-hidden flex items-center justify-center text-4xl flex-shrink-0">☕</div><div><label class="inline-block border border-stone-200 rounded-xl px-3 py-2 text-xs font-bold cursor-pointer">Pilih foto<input id="edFile" type="file" accept="image/*" class="hidden" onchange="onPickPhoto(this)"></label><p class="text-[11px] text-stone-400 mt-2">JPG/PNG, otomatis dikecilkan.</p></div></div><label class="block text-xs font-bold text-stone-500 mt-4">NAMA MENU</label><input id="edName" maxlength="60" class="field w-full mt-1"><label class="block text-xs font-bold text-stone-500 mt-3">KATEGORI</label><select id="edCat" class="field w-full mt-1"></select><label class="block text-xs font-bold text-stone-500 mt-3">HARGA (Rp)</label><input id="edPrice" type="tel" inputmode="numeric" class="field w-full mt-1"><label class="block text-xs font-bold text-stone-500 mt-3">STOK</label><input id="edStock" type="tel" inputmode="numeric" class="field w-full mt-1"><label class="flex items-center gap-2 mt-3 text-sm font-semibold cursor-pointer select-none"><input id="edTrack" type="checkbox" checked class="w-5 h-5 accent-[#765044]"> Hitung stok menu ini</label><div class="grid grid-cols-2 gap-2 mt-5"><button onclick="closeEdit()" class="border border-stone-200 rounded-xl py-3 font-bold text-stone-500">Batal</button><button id="edSave" onclick="saveProduct()" class="btn-main rounded-xl py-3 font-bold">Simpan</button></div></div></div>
@@ -123,7 +124,7 @@
       const result=await api('clock-in',{...gps,photo});state.attendance=result.session;sessionStorage.setItem(SESSION_KEY,JSON.stringify(result.session));toast(`Clock-In berhasil · ${result.distanceMeters} m dari toko`);stopCamera();await enterPOS()
     }catch(e){toast(e.message,'error');stopCamera();btn.disabled=false;btn.textContent='Coba Clock-In Lagi';$('cameraStatus').textContent='Kamera belum aktif'}
   }
-  async function enterPOS(){stopCamera();$('cashierName').textContent=state.employee.fullName;$('cashierRole').textContent=roleLabel(state.employee.role);$('cashierInitial').textContent=state.employee.fullName.slice(0,1).toUpperCase();showScreen('pos');$('manageBtn').classList.toggle('hidden-screen',!['owner','manager'].includes(state.employee.role));await loadProducts()}
+  async function enterPOS(){stopCamera();$('cashierName').textContent=state.employee.fullName;$('cashierRole').textContent=roleLabel(state.employee.role);$('cashierInitial').textContent=state.employee.fullName.slice(0,1).toUpperCase();showScreen('pos');$('manageBtn').classList.toggle('hidden-screen',!['owner','manager'].includes(state.employee.role));$('attBtn').classList.toggle('hidden-screen',!['owner','manager'].includes(state.employee.role));await loadProducts()}
   async function loadProducts(){try{const r=await api('products');state.products=r.products||[];renderCategories();renderProducts()}catch(e){toast(e.message,'error')}}
   function renderCategories(){const cats=['Semua',...new Set(state.products.map(p=>p.category))];$('categoryTabs').innerHTML='';cats.forEach(c=>{const b=document.createElement('button');b.textContent=c;b.className=`whitespace-nowrap rounded-full px-4 py-2 text-xs font-bold ${state.category===c?'bg-[#765044] text-white':'bg-white border border-stone-200 text-stone-500'}`;b.onclick=()=>{state.category=c;renderCategories();renderProducts()};$('categoryTabs').append(b)})}
   const categoryImage=(cat)=>({Coffee:'☕','Non Coffee':'🍵',Pastry:'🥐',Food:'🍽️'})[cat]||'☕';
@@ -185,7 +186,7 @@
   }
   function printReceipt(){const d=pay.done;if(!d)return;const esc=t=>String(t??'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));const tgl=d.at.toLocaleString('id-ID',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
     const lines=d.items.map(i=>`<div>${esc(i.name)}</div><div class="row"><span>${i.qty} x ${money(i.price)}</span><span>${money(i.qty*i.price)}</span></div>`).join('');
-    $('receipt').innerHTML=`<div class="c b" style="font-size:15px">KOPIAN</div><div class="c">Toko Kopi Harum Manis</div><div class="c">Graha Raya, Tangerang Selatan</div><div class="hr"></div><div class="row"><span>${tgl}</span></div><div>No: ${esc(d.no)}</div><div>Kasir: ${esc(d.cashier)}</div><div class="hr"></div>${lines}<div class="hr"></div><div class="row"><span>Subtotal</span><span>${money(d.subtotal)}</span></div>${d.applyTax?`<div class="row"><span>PPN (11%)</span><span>${money(d.tax)}</span></div>`:`<div class="row"><span>PPN</span><span>tidak dikenakan</span></div>`}<div class="row b" style="font-size:13px"><span>TOTAL</span><span>${money(d.total)}</span></div><div class="hr"></div><div class="row"><span>Bayar (${d.method==='QRIS'?'QRIS':'Tunai'})</span><span>${money(d.method==='CASH'?d.received:d.total)}</span></div>${d.method==='CASH'?`<div class="row"><span>Kembali</span><span>${money(d.change)}</span></div>`:''}<div class="hr"></div><div class="c">Terima kasih</div><div class="c">Always needed ☕</div>`;
+    $('receipt').innerHTML=`<div class="c b" style="font-size:15px">KOPIAN</div><div class="c">Graha Raya, Tangerang Selatan</div><div class="hr"></div><div class="row"><span>${tgl}</span></div><div>No: ${esc(d.no)}</div><div>Kasir: ${esc(d.cashier)}</div><div class="hr"></div>${lines}<div class="hr"></div><div class="row"><span>Subtotal</span><span>${money(d.subtotal)}</span></div>${d.applyTax?`<div class="row"><span>PPN (11%)</span><span>${money(d.tax)}</span></div>`:`<div class="row"><span>PPN</span><span>tidak dikenakan</span></div>`}<div class="row b" style="font-size:13px"><span>TOTAL</span><span>${money(d.total)}</span></div><div class="hr"></div><div class="row"><span>Bayar (${d.method==='QRIS'?'QRIS':'Tunai'})</span><span>${money(d.method==='CASH'?d.received:d.total)}</span></div>${d.method==='CASH'?`<div class="row"><span>Kembali</span><span>${money(d.change)}</span></div>`:''}<div class="hr"></div><div class="c">Terima kasih</div><div class="c">Always needed ☕</div>`;
     window.print()}
   // ---- Kelola Menu (Owner/Manager) ----
   const MGR_CATS=['Coffee','Non Coffee','Pastry','Food'];
@@ -228,9 +229,31 @@
       const ctl=edit?`<div class="flex items-center gap-1"><button onclick="updateStock('${id}',${n-1})" class="w-8 h-8 rounded-lg bg-[#f4eee8] text-[#765044] font-bold" ${p.track_stock&&n<=0?'disabled style="opacity:.4"':''}>−</button><input value="${p.track_stock?n:''}" placeholder="∞" inputmode="numeric" onchange="updateStock('${id}',this.value)" class="w-14 text-center font-bold border border-stone-200 rounded-lg py-1.5 text-sm"><button onclick="updateStock('${id}',${n+1})" class="w-8 h-8 rounded-lg bg-[#f4eee8] text-[#765044] font-bold">+</button></div>`:`<strong class="text-lg">${p.track_stock?n:'∞'}</strong>`;
       return `<div class="flex items-center gap-3 p-2 rounded-2xl ${st==='out'?'bg-rose-50/50':''}"><div class="w-12 h-12 rounded-xl bg-[#f4ece3] overflow-hidden flex items-center justify-center text-xl flex-shrink-0">${pic?`<img src="${escHtml(pic)}" class="w-full h-full object-cover" loading="lazy" onerror="this.remove()">`:categoryImage(p.category)}</div><div class="flex-1 min-w-0"><p class="font-bold text-sm truncate">${escHtml(p.name)}</p><p class="text-xs text-stone-400">${escHtml(p.category)}</p></div><span class="text-[10px] font-bold rounded-full px-2 py-1 ${badge[st][1]} hidden sm:inline">${badge[st][0]}</span>${ctl}</div>`}).join(''):'<p class="text-center text-stone-400 py-10 text-sm">Tidak ada menu yang cocok.</p>'}
   async function updateStock(id,val){const p=state.products.find(x=>String(x.id)===String(id));if(!p)return;const v=Math.max(0,Math.min(9999,Math.round(Number(val)||0))),prev={stock_qty:p.stock_qty,track_stock:p.track_stock};p.stock_qty=v;p.track_stock=true;drawStockList();drawStock();renderProducts();try{await api('stock-update',{id:p.id,stock_qty:v})}catch(e){Object.assign(p,prev);drawStock();renderProducts();toast(e.message,'error')}}
+  // ---- Rekap Absensi (Owner/Manager) ----
+  const att={rows:[],filter:'month'};
+  const attDay=v=>new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Jakarta',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date(v));
+  const attTime=v=>new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Jakarta',hour:'2-digit',minute:'2-digit',hour12:false}).format(new Date(v));
+  const attDur=m=>`${Math.floor(m/60)} j ${String(Math.round(m%60)).padStart(2,'0')} m`;
+  async function openAtt(){att.filter='month';$('attModal').classList.remove('hidden-screen');$('attChips').innerHTML='';$('attSummary').innerHTML='';$('attList').innerHTML='<p class="text-center text-stone-400 py-10 text-sm">Memuat absensi…</p>';
+    try{const r=await api('attendance-report',{days:62,photos:true});att.rows=r.rows||[];drawAtt()}catch(e){$('attList').innerHTML=`<p class="text-center text-rose-600 py-10 text-sm px-4">${escHtml(e.message)}</p>`}}
+  function closeAtt(){$('attModal').classList.add('hidden-screen')}
+  function setAttFilter(f){att.filter=f;drawAtt()}
+  function drawAtt(){
+    const today=attDay(new Date()),weekAgo=attDay(new Date(Date.now()-6*86400000));
+    const chip=(k,l)=>`<button onclick="setAttFilter('${k}')" class="rounded-full px-3 py-1.5 text-xs font-bold ${att.filter===k?'bg-[#765044] text-white':'bg-white border border-stone-200 text-stone-500'}">${l}</button>`;
+    $('attChips').innerHTML=chip('today','Hari ini')+chip('week','7 hari')+chip('month','Bulan ini')+chip('all','Semua (62 hari)');
+    const list=att.rows.filter(x=>{const d=attDay(x.clock_in_at);return att.filter==='today'?d===today:att.filter==='week'?d>=weekAgo:att.filter==='month'?d.slice(0,7)===today.slice(0,7):true}).sort((a,b)=>new Date(b.clock_in_at)-new Date(a.clock_in_at));
+    const per=new Map();list.forEach(x=>{const a=per.get(x.name)||{days:new Set(),min:0};a.days.add(attDay(x.clock_in_at));if(x.clock_out_at)a.min+=(new Date(x.clock_out_at)-new Date(x.clock_in_at))/60000;per.set(x.name,a)});
+    $('attSummary').innerHTML=[...per.entries()].map(([n,a])=>`<div class="rounded-2xl bg-[#f4ece3] p-3"><p class="text-sm font-bold text-[#765044] truncate">${escHtml(n)}</p><p class="text-lg font-bold leading-tight mt-1">${attDur(a.min)}</p><p class="text-[11px] text-stone-500">${a.days.size} hari hadir</p></div>`).join('');
+    const thumb=(u,l)=>u?`<a href="${escHtml(u)}" target="_blank" rel="noopener" title="Selfie ${l}" class="block w-10 h-10 rounded-full overflow-hidden border border-stone-200 bg-stone-100"><img src="${escHtml(u)}" class="w-full h-full object-cover" loading="lazy"></a>`:'';
+    $('attList').innerHTML=list.length?list.map(x=>{const d=attDay(x.clock_in_at),open=!x.clock_out_at;
+      const st=open?(d===today?['Sedang bekerja','bg-emerald-100 text-emerald-700']:['Belum clock-out','bg-amber-100 text-amber-800']):['Selesai · '+attDur((new Date(x.clock_out_at)-new Date(x.clock_in_at))/60000),'bg-stone-100 text-stone-600'];
+      const tgl=new Intl.DateTimeFormat('id-ID',{timeZone:'Asia/Jakarta',weekday:'short',day:'2-digit',month:'short'}).format(new Date(x.clock_in_at));
+      return `<div class="flex items-center gap-3 p-2 rounded-2xl hover:bg-[#faf6f1]"><div class="w-16 text-center flex-shrink-0"><p class="text-[11px] text-stone-400">${tgl}</p></div><div class="flex-1 min-w-0"><p class="font-bold text-sm truncate">${escHtml(x.name)}</p><p class="text-xs text-stone-500">Masuk ${attTime(x.clock_in_at)} · Pulang ${open?'—':attTime(x.clock_out_at)}</p><span class="inline-block mt-1 text-[10px] font-bold rounded-full px-2 py-0.5 ${st[1]}">${st[0]}</span></div><div class="flex gap-1">${thumb(x.in_photo_url,'masuk')}${thumb(x.out_photo_url,'pulang')}</div></div>`}).join(''):'<p class="text-center text-stone-400 py-10 text-sm">Belum ada absensi pada periode ini.</p>'}
   async function payConfirm(){if(pay.busy)return;pay.busy=true;const b=$('payConfirm');b.disabled=true;b.textContent='Menyimpan…';const t=totals();const method=state.payment,received=pay.received;try{const r=await doCheckout();const total=Number(r.sale?.total??t.total);pay.done={no:r.sale?.receipt_no,method,total,received,change:Math.max(0,received-total),subtotal:t.subtotal,tax:t.tax,applyTax:state.applyTax,at:new Date(),cashier:state.employee?.fullName||'',items:[...state.cart.values()].map(x=>({name:x.product.name,qty:x.qty,price:Number(x.product.price)}))};state.cart.clear();state.applyTax=true;$('ppnToggle').checked=true;renderCart();drawPay();loadProducts()}catch(e){toast(e.message,'error');b.textContent='Konfirmasi Pembayaran';loadProducts()}finally{pay.busy=false}}
   // ======== LAPORAN EXCEL (ExcelJS) ========
-  async function buildKopianReport(ExcelJS,rows,products,lowStock){
+  async function buildKopianReport(ExcelJS,rows,products,lowStock,attendance){
+    const att=Array.isArray(attendance)?attendance:[];
     const BROWN='FF765044',CREAM='FFF4ECE3',DARK='FF211A17',LINE='FFE3D8CC';
     const RP='"Rp" #,##0',INT='#,##0',PCT='0.0%',DATEF='dd/mm/yyyy';
     const num=v=>{const n=Number(v);return Number.isFinite(n)?n:0};
@@ -257,12 +280,12 @@
     const box={top:thin,left:thin,bottom:thin,right:thin};
 
     // Pembuat sheet tabel: judul, header, data, baris TOTAL (rumus SUM)
-    function tableSheet(name,title,cols,data,sumKeys){
+    function tableSheet(name,title,cols,data,sumKeys,subText){
       const ws=wb.addWorksheet(name,{properties:{tabColor:{argb:BROWN}},views:[{state:'frozen',ySplit:4,showGridLines:false}]});
       const n=cols.length;
       ws.columns=cols.map(c=>({key:c.key,width:c.width}));
       ws.mergeCells(1,1,1,n);const t=ws.getCell(1,1);t.value=title;t.font={name:'Calibri',size:16,bold:true,color:{argb:BROWN}};t.alignment={vertical:'middle'};ws.getRow(1).height=26;
-      ws.mergeCells(2,1,2,n);const st=ws.getCell(2,1);st.value=`KOPIAN · Toko Kopi Harum Manis, Graha Raya  |  Periode: ${periode}`;st.font={size:10,color:{argb:'FF7A6A5E'}};
+      ws.mergeCells(2,1,2,n);const st=ws.getCell(2,1);st.value=subText||`KOPIAN · Graha Raya  |  Periode: ${periode}`;st.font={size:10,color:{argb:'FF7A6A5E'}};
       const hr=ws.getRow(4);hr.height=32;
       cols.forEach((c,i)=>{const cell=hr.getCell(i+1);cell.value=c.header;cell.font={bold:true,color:{argb:'FFFFFFFF'},size:11};cell.fill={type:'pattern',pattern:'solid',fgColor:{argb:BROWN}};cell.alignment={horizontal:c.align||(c.fmt?'right':'left'),vertical:'middle',wrapText:true};cell.border=box});
       data.forEach((d,ri)=>{const row=ws.getRow(5+ri);cols.forEach((c,i)=>{const cell=row.getCell(i+1);cell.value=d[c.key];if(c.fmt)cell.numFmt=c.fmt;cell.alignment={horizontal:c.align||(c.fmt?'right':'left'),vertical:'middle'};cell.border=box;if(ri%2===1)cell.fill={type:'pattern',pattern:'solid',fgColor:{argb:'FFFBF7F2'}}});row.height=20});
@@ -293,34 +316,7 @@
     const stockList=[...products].sort((a,b)=>stOrder[stStat(a)]-stOrder[stStat(b)]||String(a.name).localeCompare(String(b.name)));
     const nHabis=stockList.filter(p=>stStat(p)==='HABIS').length,nTipis=stockList.filter(p=>stStat(p)==='MENIPIS').length;
 
-    // ---------- 1. RINGKASAN ----------
     const rs=wb.addWorksheet('Ringkasan',{properties:{tabColor:{argb:BROWN}},views:[{showGridLines:false}]});
-    rs.columns=[{width:34},{width:22},{width:16},{width:22}];
-    rs.mergeCells('A1:D1');rs.getCell('A1').value='LAPORAN PENJUALAN KOPIAN';rs.getCell('A1').font={size:20,bold:true,color:{argb:BROWN}};rs.getRow(1).height=32;
-    rs.mergeCells('A2:D2');rs.getCell('A2').value='Toko Kopi Harum Manis · Graha Raya, Tangerang Selatan';rs.getCell('A2').font={size:11,color:{argb:'FF7A6A5E'}};
-    rs.mergeCells('A3:D3');rs.getCell('A3').value=`Periode: ${periode}`;rs.getCell('A3').font={size:11,bold:true};
-    rs.mergeCells('A4:D4');rs.getCell('A4').value=`Dibuat: ${created}`;rs.getCell('A4').font={size:10,color:{argb:'FF7A6A5E'}};
-    let r=6;
-    const section=(label)=>{rs.mergeCells(r,1,r,4);const c=rs.getCell(r,1);c.value=label;c.font={bold:true,color:{argb:'FFFFFFFF'},size:11};c.fill={type:'pattern',pattern:'solid',fgColor:{argb:BROWN}};c.alignment={vertical:'middle'};rs.getRow(r).height=22;r++};
-    const line=(label,val,fmt,opt={})=>{const a=rs.getCell(r,1),b=rs.getCell(r,2);a.value=label;b.value=val;if(fmt)b.numFmt=fmt;a.border=box;b.border=box;b.alignment={horizontal:'right'};if(opt.bold){a.font={bold:true,size:12};b.font={bold:true,size:12,color:{argb:BROWN}};a.fill=b.fill={type:'pattern',pattern:'solid',fgColor:{argb:CREAM}}}if(opt.pct!==undefined){const c=rs.getCell(r,3);c.value=opt.pct;c.numFmt=PCT;c.border=box;c.alignment={horizontal:'right'}}rs.getRow(r).height=20;r++};
-    section('RINGKASAN PENJUALAN');
-    line('Jumlah transaksi',receipts.length,INT);
-    line('Jumlah item terjual',totalItems,INT);
-    line('Penjualan sebelum PPN',totalSubtotal,RP);
-    line('PPN 11%',totalTax,RP);
-    line('TOTAL OMZET',totalSales,RP,{bold:true});
-    line('Rata-rata per transaksi',receipts.length?Math.round(totalSales/receipts.length):0,RP);
-    r++;section('METODE PEMBAYARAN');
-    line('Tunai',cash,RP,{pct:totalSales?cash/totalSales:0});
-    line('QRIS',qris,RP,{pct:totalSales?qris/totalSales:0});
-    const other=totalSales-cash-qris;if(other>0)line('Lainnya',other,RP,{pct:other/totalSales});
-    r++;section('STOK HARI INI');
-    line('Menu stok habis',nHabis,INT);
-    line('Menu stok menipis (sisa ≤ '+lowStock+')',nTipis,INT);
-    r++;section('MENU TERLARIS (5 TERATAS)');
-    {const h=['Menu','Terjual','','Omzet'];h.forEach((t,i)=>{const c=rs.getCell(r,i+1);c.value=t;c.font={bold:true};c.fill={type:'pattern',pattern:'solid',fgColor:{argb:CREAM}};c.border=box;c.alignment={horizontal:i?'right':'left'}});r++}
-    menuList.slice(0,5).forEach((m,i)=>{rs.getCell(r,1).value=`${i+1}. ${m.menu}`;rs.getCell(r,2).value=m.qty;rs.getCell(r,2).numFmt=INT;rs.getCell(r,4).value=m.sales;rs.getCell(r,4).numFmt=RP;[1,2,3,4].forEach(c=>{rs.getCell(r,c).border=box});rs.getCell(r,2).alignment=rs.getCell(r,4).alignment={horizontal:'right'};r++});
-    rs.pageSetup={orientation:'portrait',fitToPage:true,fitToWidth:1,fitToHeight:1,paperSize:9};
 
     // ---------- 2. REKAP HARIAN ----------
     const daily=days.map(k=>{const rr=receipts.filter(x=>dayKey(x.sale_time_wib)===k);const rk=new Set(rr.map(x=>x.receipt_no));
@@ -360,6 +356,74 @@
       {header:'SKU',key:'sku',width:12},{header:'Menu',key:'menu',width:34},{header:'Kategori',key:'cat',width:14},{header:'Terjual (periode laporan)',key:'sold',width:16,fmt:INT},{header:'Stok Sisa',key:'stock',width:11,fmt:INT},{header:'Status',key:'status',width:14,align:'center'}
     ],stockList.map(p=>({sku:p.sku,menu:p.name,cat:p.category,sold:soldBySku.get(p.sku)||0,stock:p.track_stock?num(p.stock_qty):'-',status:stStat(p)})),['sold','stock']);
     stockList.forEach((p,i)=>{const st=stStat(p),c=ws.getRow(5+i).getCell(6);const col={'HABIS':['FFFDE2E2','FFB42318'],'MENIPIS':['FFFEF0C7','FFB54708'],'AMAN':['FFDCFAE6','FF067647']}[st];if(col){c.fill={type:'pattern',pattern:'solid',fgColor:{argb:col[0]}};c.font={bold:true,color:{argb:col[1]}}}});
+    // ---------- 8-9. ABSENSI ----------
+    const attSorted=[...att].sort((x,y)=>new Date(x.clock_in_at)-new Date(y.clock_in_at));
+    const attDays=[...new Set(attSorted.map(x=>dayKey(x.clock_in_at)))].sort();
+    const attPeriode=attDays.length?(attDays.length===1?longDate(attDays[0]):`${longDate(attDays[0])} – ${longDate(attDays[attDays.length-1])}`):'-';
+    const attSub=`KOPIAN · Graha Raya  |  Periode absensi: ${attPeriode}`;
+    const durFrac=x=>x.clock_out_at?Math.max(0,(new Date(x.clock_out_at)-new Date(x.clock_in_at))/60000)/1440:null;
+    const staffAtt=new Map();attSorted.forEach(x=>{const k=x.name||'Tidak diketahui';const a=staffAtt.get(k)||{petugas:k,days:new Set(),sesi:0,dur:0};a.days.add(dayKey(x.clock_in_at));a.sesi++;a.dur+=durFrac(x)||0;staffAtt.set(k,a)});
+    const attStaff=[...staffAtt.values()].sort((x,y)=>y.dur-x.dur).map(a=>({petugas:a.petugas,hari:a.days.size,sesi:a.sesi,dur:a.dur,avg:a.days.size?a.dur/a.days.size:0}));
+    if(att.length){
+      tableSheet('Absensi','DAFTAR ABSENSI (CLOCK-IN / CLOCK-OUT)',[
+        {header:'Tanggal',key:'tgl',width:13,fmt:DATEF,align:'center'},{header:'Petugas',key:'petugas',width:18},{header:'Masuk',key:'masuk',width:10,align:'center'},{header:'Pulang',key:'pulang',width:16,align:'center'},
+        {header:'Durasi (jam:menit)',key:'dur',width:16,fmt:'[h]:mm',align:'center'},{header:'Jarak Masuk (m)',key:'jarak',width:14,fmt:INT},{header:'Status',key:'status',width:16,align:'center'}
+      ],attSorted.map(x=>({tgl:dayDate(dayKey(x.clock_in_at)),petugas:x.name||'-',masuk:timeStr(x.clock_in_at),pulang:x.clock_out_at?timeStr(x.clock_out_at):'Belum clock-out',dur:durFrac(x),jarak:x.in_distance_m==null?null:Math.round(num(x.in_distance_m)),status:x.clock_out_at?'Selesai':'Belum clock-out'})),['dur'],attSub);
+      tableSheet('Rekap Absensi','REKAP ABSENSI PER PETUGAS',[
+        {header:'Petugas',key:'petugas',width:22},{header:'Hari Hadir',key:'hari',width:12,fmt:INT},{header:'Jumlah Sesi',key:'sesi',width:12,fmt:INT},{header:'Total Jam Kerja',key:'dur',width:16,fmt:'[h]:mm',align:'center'},{header:'Rata-rata per Hari',key:'avg',width:16,fmt:'[h]:mm',align:'center'}
+      ],attStaff,['hari','sesi','dur'],attSub);
+    }
+
+    // ---------- 1. RINGKASAN (nilai = rumus yang terhubung ke sheet lain) ----------
+    {
+      const q=n=>`'${n}'!`;
+      const nT=receipts.length,tTot=5+nT,tEnd=4+nT;
+      const lT=nT>0,lM=menuList.length>0,lS=stockList.length>0,lA=att.length>0;
+      const V=(ok,formula,result)=>ok?{formula,result}:result;
+      rs.columns=[{width:38},{width:22},{width:18},{width:50}];
+      rs.mergeCells('A1:D1');rs.getCell('A1').value='LAPORAN PENJUALAN KOPIAN';rs.getCell('A1').font={size:20,bold:true,color:{argb:BROWN}};rs.getRow(1).height=32;
+      rs.mergeCells('A2:D2');rs.getCell('A2').value='KOPIAN · Graha Raya, Tangerang Selatan';rs.getCell('A2').font={size:11,color:{argb:'FF7A6A5E'}};
+      rs.mergeCells('A3:D3');rs.getCell('A3').value=`Periode: ${periode}`;rs.getCell('A3').font={size:11,bold:true};
+      rs.mergeCells('A4:D4');rs.getCell('A4').value=`Dibuat: ${created}`;rs.getCell('A4').font={size:10,color:{argb:'FF7A6A5E'}};
+      let r=6;
+      const fillBrown={type:'pattern',pattern:'solid',fgColor:{argb:BROWN}},fillCream={type:'pattern',pattern:'solid',fgColor:{argb:CREAM}};
+      const section=label=>{rs.mergeCells(r,1,r,4);const c=rs.getCell(r,1);c.value=label;c.font={bold:true,color:{argb:'FFFFFFFF'},size:11};c.fill=fillBrown;c.alignment={vertical:'middle'};rs.getRow(r).height=22;r++};
+      const srcStyle=c=>{c.font={size:9,italic:true,color:{argb:'FF8A7A6E'}};c.border=box;c.alignment={vertical:'middle',wrapText:true}};
+      const line=(label,val,fmt,src,opt={})=>{const row=r,a=rs.getCell(row,1),b=rs.getCell(row,2),d=rs.getCell(row,4);a.value=label;b.value=val;if(fmt)b.numFmt=fmt;a.border=box;b.border=box;b.alignment={horizontal:'right'};
+        if(opt.bold){a.font={bold:true,size:12};b.font={bold:true,size:12,color:{argb:BROWN}};a.fill=b.fill=fillCream}
+        const c=rs.getCell(row,3);c.border=box;if(opt.pct){c.value=opt.pct(row);c.numFmt=PCT;c.alignment={horizontal:'right'}}if(opt.extra!==undefined){c.value=opt.extra;if(opt.extraFmt)c.numFmt=opt.extraFmt;c.alignment={horizontal:'right'}}
+        d.value=src;srcStyle(d);rs.getRow(row).height=20;r++;return row};
+      section('RINGKASAN PENJUALAN');
+      const rCount=line('Jumlah transaksi',V(lT,`COUNTA(${q('Transaksi')}A5:A${tEnd})`,nT),INT,'Sheet Transaksi · jumlah baris struk');
+      line('Jumlah item terjual',V(lT,`${q('Transaksi')}F${tTot}`,totalItems),INT,'Sheet Transaksi · baris TOTAL, kolom Jumlah Item');
+      line('Penjualan sebelum PPN',V(lT,`${q('Transaksi')}G${tTot}`,totalSubtotal),RP,'Sheet Transaksi · baris TOTAL, kolom Subtotal');
+      line('PPN 11%',V(lT,`${q('Transaksi')}H${tTot}`,totalTax),RP,'Sheet Transaksi · baris TOTAL, kolom PPN');
+      const rTotal=line('TOTAL OMZET',V(lT,`${q('Transaksi')}I${tTot}`,totalSales),RP,'Sheet Transaksi · baris TOTAL, kolom Total',{bold:true});
+      line('Rata-rata per transaksi',V(lT,`ROUND(IFERROR(B${rTotal}/B${rCount},0),0)`,nT?Math.round(totalSales/nT):0),RP,'Total omzet ÷ jumlah transaksi (dua baris di atas)');
+      r++;section('METODE PEMBAYARAN');
+      line('Tunai',V(lT,`SUMIF(${q('Transaksi')}E5:E${tEnd},"Tunai",${q('Transaksi')}I5:I${tEnd})`,cash),RP,'Sheet Transaksi · jumlah kolom Total untuk Metode Bayar = Tunai',{pct:row=>V(lT,`IFERROR(B${row}/B${rTotal},0)`,totalSales?cash/totalSales:0)});
+      line('QRIS',V(lT,`SUMIF(${q('Transaksi')}E5:E${tEnd},"QRIS",${q('Transaksi')}I5:I${tEnd})`,qris),RP,'Sheet Transaksi · jumlah kolom Total untuk Metode Bayar = QRIS',{pct:row=>V(lT,`IFERROR(B${row}/B${rTotal},0)`,totalSales?qris/totalSales:0)});
+      const other=totalSales-cash-qris;if(other>0)line('Lainnya',V(lT,`B${rTotal}-B${r-2}-B${r-1}`,other),RP,'Total omzet dikurangi Tunai dan QRIS',{pct:row=>V(lT,`IFERROR(B${row}/B${rTotal},0)`,other/totalSales)});
+      r++;section('STOK');
+      const sEnd=4+stockList.length;
+      line('Menu stok habis',V(lS,`COUNTIF(${q('Rekap Stok')}F5:F${sEnd},"HABIS")`,nHabis),INT,'Sheet Rekap Stok · jumlah baris berstatus HABIS');
+      line('Menu stok menipis (sisa ≤ '+lowStock+')',V(lS,`COUNTIF(${q('Rekap Stok')}F5:F${sEnd},"MENIPIS")`,nTipis),INT,'Sheet Rekap Stok · jumlah baris berstatus MENIPIS');
+      r++;section('MENU TERLARIS (5 TERATAS)');
+      {['Menu','Terjual','Omzet','Sumber data'].forEach((t,i)=>{const c=rs.getCell(r,i+1);c.value=t;c.font={bold:true};c.fill=fillCream;c.border=box;c.alignment={horizontal:(i===1||i===2)?'right':'left'}});r++}
+      menuList.slice(0,5).forEach((m,i)=>{const row=5+i;
+        rs.getCell(r,1).value=V(lM,`"${i+1}. "&${q('Rekap Menu')}B${row}`,`${i+1}. ${m.menu}`);
+        rs.getCell(r,2).value=V(lM,`${q('Rekap Menu')}D${row}`,m.qty);rs.getCell(r,2).numFmt=INT;
+        rs.getCell(r,3).value=V(lM,`${q('Rekap Menu')}E${row}`,m.sales);rs.getCell(r,3).numFmt=RP;
+        rs.getCell(r,4).value=`Sheet Rekap Menu · baris ke-${i+1}`;srcStyle(rs.getCell(r,4));
+        [1,2,3].forEach(c=>{rs.getCell(r,c).border=box});rs.getCell(r,2).alignment=rs.getCell(r,3).alignment={horizontal:'right'};r++});
+      if(lA){
+        const aTot=5+attStaff.length,totDur=attStaff.reduce((a,x)=>a+x.dur,0);
+        r++;section('ABSENSI (JAM KERJA)');
+        line('Total jam kerja semua petugas',V(true,`${q('Rekap Absensi')}D${aTot}`,totDur),'[h]:mm','Sheet Rekap Absensi · baris TOTAL, kolom Total Jam Kerja');
+        attStaff.forEach((x,i)=>line(V(true,`${q('Rekap Absensi')}A${5+i}`,x.petugas),V(true,`${q('Rekap Absensi')}D${5+i}`,x.dur),'[h]:mm',`Sheet Rekap Absensi · baris ke-${i+1} (jam kerja dan hari hadir)`,{extra:V(true,`${q('Rekap Absensi')}B${5+i}`,x.hari),extraFmt:'0 "hari"'}));
+      }
+      rs.pageSetup={orientation:'portrait',fitToPage:true,fitToWidth:1,fitToHeight:1,paperSize:9};
+    }
     return wb;
   }
 
@@ -369,10 +433,10 @@
     try{
       if(!['owner','manager'].includes(state.employee.role)){toast('Ekspor hanya untuk Owner atau Manager.','error');return}
       btn.disabled=true;btn.textContent='Menyiapkan…';
-      const [r,pr]=await Promise.all([api('export-sales'),api('products')]);const rows=r.rows||[];
+      const [r,pr,ar]=await Promise.all([api('export-sales'),api('products'),api('attendance-report',{days:62}).catch(()=>({rows:[]}))]);const rows=r.rows||[];
       if(!rows.length){toast('Belum ada transaksi untuk diekspor.');return}
       const ExcelJS=await loadExcelJS();
-      const wb=await buildKopianReport(ExcelJS,rows,pr.products||state.products||[],LOW_STOCK);
+      const wb=await buildKopianReport(ExcelJS,rows,pr.products||state.products||[],LOW_STOCK,ar.rows||[]);
       const buf=await wb.xlsx.writeBuffer();
       const stamp=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Jakarta',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
       const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([buf],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}));a.download=`KOPIAN-Laporan-Penjualan-${stamp}.xlsx`;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),5000);
@@ -380,7 +444,7 @@
     }catch(e){toast(e.message,'error')}
     finally{btn.disabled=false;btn.textContent=label}
   }
-  $('clockInBtn').onclick=clockIn;$('logoutAttendance').onclick=clearLogin;$('logoutPos').onclick=clearLogin;$('clockOutBtn').onclick=clockOut;$('refreshProducts').onclick=loadProducts;$('checkoutBtn').onclick=checkout;$('exportBtn').onclick=exportExcel;$('manageBtn').onclick=openMgr;$('stockBtn').onclick=openStock;$('ppnToggle').onchange=e=>{state.applyTax=e.target.checked;renderCart()};
+  $('clockInBtn').onclick=clockIn;$('logoutAttendance').onclick=clearLogin;$('logoutPos').onclick=clearLogin;$('clockOutBtn').onclick=clockOut;$('refreshProducts').onclick=loadProducts;$('checkoutBtn').onclick=checkout;$('exportBtn').onclick=exportExcel;$('manageBtn').onclick=openMgr;$('stockBtn').onclick=openStock;$('attBtn').onclick=openAtt;$('ppnToggle').onchange=e=>{state.applyTax=e.target.checked;renderCart()};
   renderPin();
   (async()=>{try{if(!configured){showScreen('login');$('loginError').textContent='Konfigurasi Supabase belum diisi di index.html.';return}const token=sessionStorage.getItem(TOKEN_KEY),emp=sessionStorage.getItem(EMP_KEY);if(token&&emp){state.token=token;state.employee=JSON.parse(emp);await enterAttendance()}else showScreen('login')}catch(e){clearLogin();toast(e.message,'error')}})();
   </script>
